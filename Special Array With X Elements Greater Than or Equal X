@@ -1,0 +1,33 @@
+class Solution {
+    public int binary(int[] nums, int val){
+        int ans=-1;
+        int low = 0, high = nums.length-1;
+        while(low<=high){
+            int mid = low + (high-low)/2;
+            if(nums[mid]==val){
+                ans=mid;
+                high = mid-1;
+            }
+            if(nums[mid]<val)
+                low=mid+1;
+            else
+                high = mid-1;
+        }
+        if(ans==-1){
+            return nums.length-low;
+        }
+        return nums.length-ans;
+    }
+    public int specialArray(int[] nums) {
+        Arrays.sort(nums);
+        int c=0;
+        while(c<=nums.length){
+            int ans = binary(nums,c);
+            if(ans==c)
+                return ans;
+            else
+                c++;
+        }
+        return -1;
+    }
+}
