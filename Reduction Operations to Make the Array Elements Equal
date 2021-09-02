@@ -1,0 +1,46 @@
+class Solution {
+    public int first(int[] nums, int target, int low, int high){
+        int ans=-1;
+        while(low<=high) {
+            int mid = low + (high-low)/2;
+            if(nums[mid]==target){
+                ans=mid;
+                high=mid-1;
+            }
+            else if(nums[mid]<target)
+                low=mid+1;
+            else
+                high=mid-1;
+        }
+        return ans;
+    }
+    public int last(int[] nums, int target, int low, int high){
+        int ans=-1;
+        while(low<=high) {
+            int mid = low + (high-low)/2;
+            if(nums[mid]==target){
+                ans=mid;
+                low=mid+1;
+            }
+            else if(nums[mid]<target)
+                low=mid+1;
+            else
+                high=mid-1;
+        }
+        return ans;
+    }
+    
+    public int reductionOperations(int[] nums) {
+        Arrays.sort(nums);
+        int ans=0;
+        int low=0, high=nums.length-1;
+        while(low<=high){
+            int fo = first(nums, nums[high], low, high);
+            int lo = last(nums, nums[high], low, high);
+            ans = ans + (nums.length-(lo+1));
+            high = fo-1;
+            low=0;
+        }
+        return ans;
+    }
+}
