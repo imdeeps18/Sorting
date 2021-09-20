@@ -1,0 +1,63 @@
+package sort.merge;
+
+import java.util.Arrays;
+
+public class MergeSort {
+    public static void main(String[] args) {
+//        int[] arr = {5, 2, 4, 1, 7, 8};
+        int[] arr = {5, 4, 3, 2, 1, 0, 9, 8, 11};
+        mergeSort(0, arr.length-1, arr);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    private static void mergeSort(int low, int high, int[] arr) {
+
+        if(low<high){
+            int mid = low + (high-low)/2;
+            mergeSort(low, mid, arr);
+            mergeSort(mid+1, high, arr);
+            merge(low, mid, high, arr);
+        }
+    }
+
+    private static void merge(int low, int mid, int high, int[] arr) {
+        int n = mid - low + 1;
+        int m = high - mid;
+        int[] L = new int[n];
+        int[] R = new int[m];
+        int k=0;
+        for (int i = low; i <= mid; i++) {
+            L[k] = arr[i];
+            k++;
+        }
+        k=0;
+        for (int i = mid+1; i <= high ; i++) {
+            R[k] = arr[i];
+            k++;
+        }
+        int i=0, j=0;
+        k=low;
+        while(i< n && j<m){
+            if(L[i]<R[j]){
+                arr[k]=L[i];
+                i++;
+            }
+            else{
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+        while(i<n){
+            arr[k] = L[i];
+            k++;
+            i++;
+        }
+        while (j<m){
+            arr[k] = R[j];
+            k++;
+            j++;
+        }
+
+    }
+}
